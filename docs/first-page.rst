@@ -4,15 +4,14 @@ Your first three pages
 Install Gramlot
 ---------------
 
-Use Python 3.11 or newer and a virtual environment. This adapter and its required
-Gramlot 0.1.5 version are not published yet, so install the sibling checkouts:
+Use Python 3.11 or newer and a virtual environment. Install this experimental adapter from GitHub;
+its dependency declaration downloads the checksummed Gramlot 0.1.5 wheel:
 
 .. code-block:: console
 
    python3 -m venv .venv
    source .venv/bin/activate
-   python -m pip install -e ../gramlot-poc
-   python -m pip install -e .
+   python -m pip install 'git+https://github.com/gramlot-org/gramlot-fastapi.git@main'
 
 On Windows, activate the environment with ``.venv\Scripts\activate`` instead.
 The Gramlot framework wheel includes browser assets; this adapter serves them

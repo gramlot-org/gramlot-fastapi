@@ -1,14 +1,29 @@
 # Getting started
 
-The FastAPI preview candidate is not published yet. Its exact Gramlot 0.1.5
-core wheel is available from the Django GitHub preview; see the
-[wheel installation and verification procedure](release.md). For development
-from sibling source checkouts, install both editable packages:
+This preview evaluates APIs and design choices; bugs and incomplete behavior are
+expected. In a Python 3.11+ virtual environment, install the adapter from GitHub:
 
 ```sh
-python -m pip install -e ../gramlot-poc
-python -m pip install -e .
+python -m pip install 'git+https://github.com/gramlot-org/gramlot-fastapi.git@main'
 ```
+
+Git and access to this repository are required. The dependency declaration fetches
+the checksummed experimental Gramlot 0.1.5 wheel automatically. No core source tag,
+sibling checkout or Node.js is required. The version names a packaged POC snapshot,
+not a consolidated release in the clean `gramlot` repository.
+
+For a minimal example, create `pages/hello.py`:
+
+```python
+from gramlot.page import WebPage
+
+class Page(WebPage):
+    def main(self, root):
+        root.h1("Hello from Gramlot")
+```
+
+Run `gramlot-fastapi serve .` and open `http://127.0.0.1:8000/page/hello/`.
+See [artifact provenance](release.md) and the [inspector guide](inspector.md).
 
 Create an application directory containing `pages/`, then run:
 

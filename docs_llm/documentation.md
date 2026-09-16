@@ -9,7 +9,7 @@ links; preserve decisions, constraints, status and unresolved questions.
 
 ## 2. Coverage
 
-Pairs: overview, architecture, documentation, release, Read the Docs setup. Older API/integration guides
+Pairs: overview, architecture, documentation, release, inspector, Read the Docs setup. Older API/integration guides
 remain detailed references; mirror substantial revisions. Historical evidence retains
 dates/scope. Concise index routes both sets.
 

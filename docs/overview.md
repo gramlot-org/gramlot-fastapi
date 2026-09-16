@@ -10,6 +10,10 @@ experimental core; the clean `gramlot` repository defines the constitution and
 will contain the first consolidated product. Passing POC tests is evidence, not
 acceptance of a port. The adapter candidate is 0.1.0a1; no publication is implied.
 
+The preview evaluates APIs and design choices. Descriptions express intended
+behavior; bugs and incomplete cases may exist. The adapter automatically installs
+the checksummed experimental core wheel; no matching core source tag is needed.
+
 ## 2. Responsibilities
 
 FastAPI supplies server adaptation: requests, routing, invocation and asset delivery.

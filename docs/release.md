@@ -5,11 +5,15 @@
 ## 1. Status and dependency
 
 The FastAPI candidate is **0.1.0a1**, pinned to **gramlot 0.1.5**. It is a POC,
-not the forthcoming consolidated product. No FastAPI preview has been published
-by this change. The matching core wheel is already distributed in Django's
+not the forthcoming consolidated product. The source preview is installable from this repository on `main`;
+no tagged FastAPI wheel or PyPI release is claimed. The matching core wheel is already distributed in Django's
 `v0.1.0-preview.1` GitHub release. Its SHA-256 is
 `63466802618c8cbd3fed0a83e1072556085a31bd522477dbcfe1122417a26f4a`.
-No editable checkout or Node.js is needed to consume these wheels.
+The adapter declares that URL and checksum as a direct dependency, so normal pip
+installation resolves it automatically. Version 0.1.5 identifies this wheel's
+experimental snapshot; it does not require a matching core source release.
+No editable checkout or Node.js is needed. Described behavior is intended behavior;
+these previews may contain bugs and exist to evaluate APIs and design choices.
 
 ## 2. Build and verify
 
@@ -44,7 +48,8 @@ do not silently rebuild or replace a core wheel with different contents at the
 same version. Add the concrete tag-based pip installation command only once the
 tag and assets exist. No automatic publishing workflow is added here.
 PyPI publication and repository visibility changes are separate owner actions.
-Until then use the locally verified wheels or sibling development checkouts.
+Until then install the source preview from main or use locally verified wheels.
+GitHub repository access is required while this adapter repository is private.
 
 ## 4. Architecture limits
 

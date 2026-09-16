@@ -23,7 +23,7 @@ dependencies = [
     "fastapi>=0.115",
     "genro-bag>=0.21.1,<0.22",
     "genro-tytx[msgpack]>=0.15.0",
-    "gramlot==0.1.5",
+    "gramlot @ https://github.com/gramlot-org/gramlot-django/releases/download/v0.1.0-preview.1/gramlot-0.1.5-py3-none-any.whl#sha256=63466802618c8cbd3fed0a83e1072556085a31bd522477dbcfe1122417a26f4a",
     "pydantic>=2.0",
     "uvicorn>=0.30",
 ]
@@ -43,6 +43,9 @@ Repository = "https://github.com/gramlot-org/gramlot-fastapi"
 
 [tool.uv.sources]
 gramlot = {path = "../gramlot-poc", editable = true}
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/gramlot_fastapi"]

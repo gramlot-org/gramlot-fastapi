@@ -7,6 +7,10 @@ This integration remains a POC under review. The experimental runtime lives in
 0.1.0a1 pins the compatible core 0.1.5 candidate, following Django's checksummed
 wheel distribution model. See [release preparation](docs/release.md) and the
 paired [architecture](docs/architecture.md). No publication is implied.
+The adapter now declares the checksummed experimental core wheel as a direct
+dependency, so users do not need a matching Gramlot source tag. Version 0.1.5
+identifies that packaged POC snapshot. Preview descriptions express intended
+behavior for API and design evaluation; bugs and incomplete cases may exist.
 Server and database adaptation are separate responsibilities. SQLite belongs in
 Gramlot/gramlot-poc; temporary legacy placement is tolerated for this preview.
 The older extraction scope below is historical where later architecture refines it.

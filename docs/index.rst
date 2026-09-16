@@ -24,6 +24,7 @@ first page, or :doc:`architecture` for the server and database boundaries.
    :caption: Integration
 
    guide
+   inspector
    reference
    architecture
    server-and-database-integration

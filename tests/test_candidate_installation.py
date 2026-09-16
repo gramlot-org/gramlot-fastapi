@@ -26,6 +26,19 @@ def test_no_override_uses_normal_resolution(candidate, monkeypatch):
     assert calls == []
 
 
+def test_direct_core_dependency_supplies_version_for_verification(candidate, monkeypatch):
+    import json
+    monkeypatch.setenv('CORE_WHEEL_URL', 'https://example.com/gramlot-0.1.5-py3-none-any.whl')
+    monkeypatch.setenv('CORE_WHEEL_SHA256', 'a' * 64)
+    calls = []
+    monkeypatch.setattr(candidate.subprocess, 'run', lambda *a, **kw: calls.append((a, kw)))
+    candidate.main()
+    assert len(calls) == 2
+    expected = json.loads(calls[1][1]['input'])
+    assert expected['version'] == '0.1.5'
+    assert expected['sha256'] == 'a' * 64
+
+
 @pytest.mark.parametrize('url,digest', [
     ('https://example.com/core.whl', ''), ('', 'a' * 64),
     ('http://example.com/core.whl', 'a' * 64),

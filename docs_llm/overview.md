@@ -9,6 +9,10 @@ API. Experimental runtime: `gramlot-poc`. Clean `gramlot`: constitution, ports,
 future first product. Tests provide evidence, not port acceptance. Candidate
 0.1.0a1 is not published by this work.
 
+The preview evaluates APIs and design choices. Descriptions express intended
+behavior; bugs and incomplete cases may exist. The adapter automatically installs
+the checksummed experimental core wheel; no matching core source tag is needed.
+
 ## 2. Responsibilities
 
 FastAPI: server adaptation. Database adapters: backend/model adaptation.

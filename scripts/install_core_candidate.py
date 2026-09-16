@@ -1,7 +1,7 @@
 # Copyright 2026 Softwell S.r.l. - SPDX-License-Identifier: Apache-2.0
 """Optional CI bootstrap for a checksummed core wheel before its PyPI release.
 
-With no candidate environment variables, ordinary pip resolution uses PyPI.
+With no candidate environment variables, ordinary pip resolution uses the declared checksummed core URL.
 This helper is a release-test tool, not an application installation hook.
 """
 import argparse
@@ -47,8 +47,15 @@ def main():
             or not re.fullmatch('[0-9a-fA-F]{64}', checksum)):
         raise SystemExit('Candidate requires an HTTPS wheel URL and its SHA-256 checksum')
     project = tomllib.loads((Path(__file__).resolve().parents[1] / 'pyproject.toml').read_text())
-    pins = [item.removeprefix('gramlot==') for item in project['project']['dependencies']
-            if item.startswith('gramlot==')]
+    pins = []
+    for dependency in project['project']['dependencies']:
+        if dependency.startswith('gramlot=='):
+            pins.append(dependency.removeprefix('gramlot=='))
+        elif dependency.startswith('gramlot @ '):
+            filename = urlsplit(dependency.removeprefix('gramlot @ ')).path.rsplit('/', 1)[-1]
+            match = re.fullmatch(r'gramlot-([^-]+)-py3-none-any\.whl', filename)
+            if match:
+                pins.append(match[1])
     if len(pins) != 1:
         raise SystemExit('Candidate verification requires one exact Gramlot version pin')
     if not args.verify:

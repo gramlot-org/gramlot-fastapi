@@ -17,7 +17,10 @@ The implementation extracted from `gramlot.contrib.fastapi` lives in
 
 Gramlot applications hosted by FastAPI.
 
-**Status: POC under review — preparing an installable experimental preview.**
+**Status: experimental preview for evaluating APIs and design choices.**
+
+Documentation describes intended behavior. Bugs, incomplete cases and changing
+behavior are expected: passing checks do not guarantee a bug-free product.
 
 Gramlot and this integration are being reviewed and consolidated, with the intent
 of reaching a reviewed prerelease soon. No stable contract or release date is
@@ -40,14 +43,22 @@ records the next architectural direction: separate internal adapters, a page-fac
 surface, and a standard Gramlot database interface with real and fake adapters.
 It distinguishes agreed principles from APIs still to be defined.
 
-This preview candidate has not been published. For development in sibling checkouts, install the current
-framework and this adapter before creating an application root containing
-`pages/`:
+## Try the preview
+
+Python 3.11+ and Git are required. In an activated virtual environment:
 
 ```sh
-python -m pip install -e ../gramlot-poc
-python -m pip install -e .
+python -m pip install 'git+https://github.com/gramlot-org/gramlot-fastapi.git@main'
 ```
+
+This installs the checksummed Gramlot 0.1.5 core wheel automatically from the
+Django preview assets. **0.1.5 identifies that packaged experimental snapshot**;
+you do not need a matching source tag or either core checkout. The clean
+`gramlot` repository is not yet the executable product. Browser assets are
+included in the core wheel, so Node.js is not needed. This repository currently
+requires GitHub access while private; this command does not grant that access.
+No PyPI release is claimed. See [getting started](docs/getting-started.md) for a
+minimal page and [release details](docs/release.md) for artifact provenance.
 
 Then start the development host:
 
@@ -91,6 +102,23 @@ Examples use the experimental Gramlot version maintained in
 [gramlot-poc](https://github.com/gramlot-org/gramlot-poc). They will be adapted as
 Gramlot evolves and its APIs are reviewed and consolidated. Treat them as
 experimental examples, not a stable API reference.
+
+## Inspector, forms and admin experiments
+
+The shared Gramlot inspector lets you explore **Data** (page state) and **Source**
+(the live UI declaration tree), and edit supported values and attributes while
+watching the page react. Open its magnifying-glass control or press
+`Ctrl+Shift+D`. These edits do not rewrite Python source or automatically save
+records to a database. See the [illustrated inspector guide](docs/inspector.md).
+
+![Gramlot Data inspector, illustrated in the Django Bakery experiment](docs/_static/screenshots/inspector-data.png)
+
+The screenshot shows the shared inspector in **Django Bakery**, not a FastAPI
+admin application. Django's SPA admin, model-derived forms and validation are
+related experiments; this adapter does not currently provide an equivalent
+ready-made admin or ORM-driven form generator. See
+[forms and admin scope](docs/inspector.md#4-forms-validation-and-admin-scope).
+All these demonstrations describe experimental, intended behavior and may have bugs.
 
 ## Bonus: genro-bag for other Python projects
 
