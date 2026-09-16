@@ -24,11 +24,6 @@ Server and database adaptation are separate responsibilities. SQLite belongs in
 Gramlot/gramlot-poc; temporary legacy placement is tolerated for this preview.
 The older extraction scope below is historical where later architecture refines it.
 
-## Recorded owner request — 2026-09-15
-
-Create this repository under `gramlot-org` using `genro-asgi` as the boilerplate
-reference. Keep the checkout under `/Users/gporcari/Sviluppo/gramlot`.
-
 ## Owner clarification — 2026-09-15
 
 The section below records the extraction scope. The later
