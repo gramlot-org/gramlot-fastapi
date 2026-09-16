@@ -11,8 +11,8 @@ Document ID: **GF-030**.
 
 Block ID: **GF-030-005**.
 
-The documentation uses Sphinx, MyST for Markdown, and Furo with Gramlot's logo
-and light/dark palette. The POC notice appears on every page. The guides build
+The documentation uses Sphinx, MyST for Markdown, and the classic Read the Docs theme
+(`sphinx_rtd_theme`) with Gramlot's logo, blue header, dark sidebar and light content. The POC notice appears on every page. The guides build
 without installing FastAPI, Gramlot or this adapter; the version is read from
 `pyproject.toml`, not from an installed package.
 
@@ -70,4 +70,4 @@ is separated from the installation and integration navigation. Keep theme
 requirements in `pyproject.toml` and `docs/requirements.txt` aligned.
 
 References: [Read the Docs configuration](https://docs.readthedocs.com/platform/stable/config-file/v2.html)
-and [Furo customization](https://pradyunsg.me/furo/customisation/).
+and [Read the Docs theme](https://sphinx-rtd-theme.readthedocs.io/en/stable/).

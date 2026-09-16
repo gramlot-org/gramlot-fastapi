@@ -158,7 +158,7 @@ See the [genro-bag documentation](https://genro-bag.readthedocs.io).
 
 ## Documentation build
 
-Sphinx uses Furo with the Gramlot logo and light/dark palette. A dedicated CI
+Sphinx uses the classic Read the Docs theme with the Gramlot logo. A dedicated CI
 workflow builds the guides without installing the adapter or experimental core.
 Read the Docs configuration is provided; external project setup is separate.
 See [build and hosting instructions](docs/030-readthedocs.md).

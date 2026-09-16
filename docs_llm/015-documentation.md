@@ -56,5 +56,5 @@ The integration direction now has its missing concise mirror.
 Remaining legacy guides: getting-started.md, first-page.rst, guide.rst and
 reference.rst lack concise mirrors and stable IDs. Migrate and add mirrors on
 substantial revision. Entry points, configuration, requirements and assets are
-exempt. Keep Sphinx/Furo. Public documentation follows main; new work stays on
+exempt. Keep Sphinx with sphinx_rtd_theme. Public documentation follows main; new work stays on
 develop until verified and accepted.

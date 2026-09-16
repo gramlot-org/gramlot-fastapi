@@ -11,7 +11,7 @@ Document ID: **GF-030**.
 
 Block ID: **GF-030-005**.
 
-- Sphinx + MyST + Furo; Gramlot logo/palette, light/dark mode, POC announcement.
+- Sphinx + MyST + sphinx_rtd_theme; Gramlot logo, blue header, dark sidebar, light content, POC notice.
 - Version from pyproject.toml; no FastAPI/core/adapter installation needed.
 - Install `docs/requirements.txt`; build:
   `python -m sphinx -n -W --keep-going -b html docs docs/_build/html`.
@@ -49,4 +49,4 @@ Block ID: **GF-030-020**.
 
 - Update paired guides together; see [policy](015-documentation.md) for incomplete mirror coverage.
 - Separate POC records from user navigation; synchronize docs requirements and pyproject extra.
-- Official RTD/Furo references are in the expanded guide.
+- Official RTD/theme references are in the expanded guide.
