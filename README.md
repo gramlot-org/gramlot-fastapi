@@ -133,6 +133,13 @@ Examples use the experimental Gramlot version maintained in
 Gramlot evolves and its APIs are reviewed and consolidated. Treat them as
 experimental examples, not a stable API reference.
 
+## gramlot.showcase
+
+Run `python examples/showcase/serve.py` from an installed checkout and open
+<http://127.0.0.1:8075/>. The first common showcase has a page tree, persistent
+SPA examples, real Python source and the shared inspector. No database is required.
+See [the showcase guide](docs/045-showcase.md) for ownership and future host ports.
+
 ## FastAPI inspector
 
 The shared Gramlot inspector exposes **Data** (page state) and **Source**

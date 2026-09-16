@@ -2,6 +2,7 @@
 
 - [Overview](005-overview.md)
 - [Architecture](010-architecture.md)
+- [gramlot.showcase](045-showcase.md)
 - [FastAPI inspector](025-inspector.md)
 - [SQLAlchemy scope and status](035-sqlalchemy.md)
 - [Documentation policy](015-documentation.md)

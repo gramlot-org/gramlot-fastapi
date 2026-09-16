@@ -28,6 +28,7 @@ reader connected to FastAPI through a provisional optional database profile.
 
    guide
    025-inspector
+   045-showcase
    035-sqlalchemy
    reference
    010-architecture
