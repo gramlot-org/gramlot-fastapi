@@ -1,14 +1,21 @@
 # Server and database integration
 
+Document ID: **GF-040**.
+
 **Status:** architectural discussion recorded on 2026-09-15.
-See the [current architecture](architecture.md) for the 2026-09-16 constitution
+See the [current architecture](010-architecture.md) for the 2026-09-16 constitution
 and the existing SQLite prototype in `gramlot-poc`; implementation statements
 below describe this FastAPI extraction, not the absence of database work in the POC.
 The common database interface and its implementation are still to be defined.
 Class and module names below illustrate responsibilities; they are not a new
 public API.
 
-## Purpose
+<a id="purpose"></a>
+<a id="gf-040-005"></a>
+
+## 005 · Purpose
+
+Block ID: **GF-040-005**.
 
 Gramlot applications should compose a server integration and, when needed, a
 database integration. Each integration has internal machinery and an outer
@@ -18,7 +25,12 @@ The page is the surface that application developers work with. Adapters perform
 the underlying preparation, translation and resource management. Developers
 should not have to repeat that infrastructure in every page.
 
-## Two independent integrations
+<a id="two-independent-integrations"></a>
+<a id="gf-040-010"></a>
+
+## 010 · Two independent integrations
+
+Block ID: **GF-040-010**.
 
 | Integration | Internal responsibilities | Surface available on the page |
 | --- | --- | --- |
@@ -50,7 +62,12 @@ Internal integration machinery
 This diagram describes responsibilities. It does not prescribe an inheritance
 order or a concrete configuration API.
 
-## Gramlot owns the database contract
+<a id="gramlot-owns-the-database-contract"></a>
+<a id="gf-040-015"></a>
+
+## 015 · Gramlot owns the database contract
+
+Block ID: **GF-040-015**.
 
 Gramlot will define its own standard database interface. The application page
 will use that interface, and each database adapter will make its operations work
@@ -79,7 +96,12 @@ Changing adapters should preserve page code that uses the agreed contract and
 the same application data model. This does not imply that unrelated schemas or
 every native backend feature are automatically interchangeable.
 
-## Internal adapters and page mixins
+<a id="internal-adapters-and-page-mixins"></a>
+<a id="gf-040-020"></a>
+
+## 020 · Internal adapters and page mixins
+
+Block ID: **GF-040-020**.
 
 Mixins can provide the page-facing part of an integration. A server mixin could
 expose request context; a database mixin could expose the standard database
@@ -99,7 +121,12 @@ The details should run transparently during ordinary page use, while failures
 must remain visible and diagnosable. Transparent operation does not mean silently
 ignoring errors or choosing an undocumented transaction policy.
 
-## Resource lifecycle
+<a id="resource-lifecycle"></a>
+<a id="gf-040-025"></a>
+
+## 025 · Resource lifecycle
+
+Block ID: **GF-040-025**.
 
 The integrations need an explicit agreement about the lifetime of resources
 during a page method invocation. This includes acquiring database resources,
@@ -118,7 +145,12 @@ work and cleanup to run in the same worker thread. Separating the integrations
 must preserve that constraint. `GnrApp` also provides model metadata and other
 services; the standard interface must deliberately select what it exposes.
 
-## Fake database adapter
+<a id="fake-database-adapter"></a>
+<a id="gf-040-030"></a>
+
+## 030 · Fake database adapter
+
+Block ID: **GF-040-030**.
 
 The fake adapter will implement the same Gramlot database interface and return
 simulated data through it. Pages must not need fake-specific branches or a second
@@ -133,7 +165,12 @@ between the three tables were suggested but have not been agreed. Whether the
 fake adapter supports writes, how changes are reset, and which operations form
 its first supported contract are also still open.
 
-## Code ownership
+<a id="code-ownership"></a>
+<a id="gf-040-035"></a>
+
+## 035 · Code ownership
+
+Block ID: **GF-040-035**.
 
 The discussed direction places server-independent database integrations in
 Gramlot's optional `contrib` area, for example `gramlot.contrib.sqlalchemy` and
@@ -149,13 +186,19 @@ was moved into this repository as part of the FastAPI extraction. Its reusable
 database responsibilities are candidates for the new Gramlot contrib boundary;
 the extraction alone did not establish that separation.
 
-## Current implementation and next decisions
+<a id="current-implementation-and-next-decisions"></a>
+<a id="gf-040-040"></a>
 
-The repository currently implements FastAPI hosting and a Genropy profile coupled
-to its page collection. The standard Gramlot database interface, SQLAlchemy
-adapter and fake adapter described here are not implemented.
+## 040 · Current implementation and next decisions
 
-Before implementation, settle:
+Block ID: **GF-040-040**.
+
+The repository implements FastAPI hosting, the legacy Genropy profile, and a
+[provisional SQLAlchemy/SQLite profile](035-sqlalchemy.md). The latter connects the
+core minimum `DbHandler.dbselect` contract through `db_handler` and `DbPageMixin`.
+The broader interface and three-table fake adapter described here remain open.
+
+Before extending this minimum implementation, settle:
 
 1. The smallest useful database contract: operations, results and errors.
 2. The three teaching tables and whether they have relationships.

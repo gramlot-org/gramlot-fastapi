@@ -1,8 +1,15 @@
 # Experimental preview preparation
 
-[Concise counterpart](https://github.com/gramlot-org/gramlot-fastapi/blob/main/docs_llm/release.md).
+Document ID: **GF-020**.
 
-## 1. Status and dependency
+[Concise counterpart](https://github.com/gramlot-org/gramlot-fastapi/blob/main/docs_llm/020-release.md).
+
+<a id="1-status-and-dependency"></a>
+<a id="gf-020-005"></a>
+
+## 005 · Status and dependency
+
+Block ID: **GF-020-005**.
 
 The FastAPI candidate is **0.1.0a1**, pinned to **gramlot 0.1.5**. It is a POC,
 not the forthcoming consolidated product. The source preview is installable from this repository on `main`;
@@ -15,7 +22,12 @@ experimental snapshot; it does not require a matching core source release.
 No editable checkout or Node.js is needed. Described behavior is intended behavior;
 these previews may contain bugs and exist to evaluate APIs and design choices.
 
-## 2. Build and verify
+<a id="2-build-and-verify"></a>
+<a id="gf-020-010"></a>
+
+## 010 · Build and verify
+
+Block ID: **GF-020-010**.
 
 Run `python scripts/check.py`, `python -m build`, and
 `python -m twine check --strict dist/*` in the prepared development environment.
@@ -38,7 +50,12 @@ checkout. `install_core_candidate.py` validates the exact core version and prove
 its optional HTTPS URL and SHA-256 inputs must be supplied together. Browser visual
 verification and real legacy Genropy installation are separate acceptance checks.
 
-## 3. Manual distribution gate
+<a id="3-manual-distribution-gate"></a>
+<a id="gf-020-015"></a>
+
+## 015 · Manual distribution gate
+
+Block ID: **GF-020-015**.
 
 Review the adapter changes and choose the release commit/tag; run remote CI and
 publish only the verified wheel and sdist with SHA256SUMS. A GitHub prerelease can
@@ -51,7 +68,12 @@ PyPI publication and repository visibility changes are separate owner actions.
 Until then install the source preview from main or use locally verified wheels.
 The adapter repository and core release assets are public; anonymous downloads are supported.
 
-## 4. Architecture limits
+<a id="4-architecture-limits"></a>
+<a id="gf-020-020"></a>
+
+## 020 · Architecture limits
+
+Block ID: **GF-020-020**.
 
 Server and database adapters are independent responsibilities. Preview packaging
 must not force a database migration. SQLite belongs to Gramlot/gramlot-poc; any

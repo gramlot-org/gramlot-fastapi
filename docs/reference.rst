@@ -33,18 +33,21 @@ Python entry points
 Import from ``gramlot_fastapi``. Importing this optional module requires
 FastAPI; importing Gramlot's core does not.
 
-.. py:class:: GramlotApplication(directory=None, *, prefix='/page', page_title='Gramlot', **fastapi_options)
+.. py:class:: GramlotApplication(directory=None, *, prefix='/page', page_title='Gramlot', db_handler=None, **fastapi_options)
 
    A FastAPI subclass that registers a page collection during construction.
    ``directory`` accepts a string or Path. ``page_title`` sets the HTML document
    title. Additional options are passed to FastAPI, so ``title='My API'`` changes
    the API documentation title rather than the page document title.
 
-.. py:function:: mount_gramlot(app, directory=None, *, prefix='/page', title='Gramlot')
+.. py:function:: mount_gramlot(app, directory=None, *, prefix='/page', title='Gramlot', db_handler=None)
 
    Register pages on an existing FastAPI application and return its PageCollection.
    Here ``title`` is the HTML document title. The page collection is infrastructure;
    ordinary page authors do not need to instantiate it directly.
+
+Both entry points accept a caller-owned core DbHandler, attached to DbPageMixin
+pages. See :doc:`035-sqlalchemy` for setup and resource ownership.
 
 The URL prefix is one or more slash-separated segments, each beginning with a
 lowercase letter and continuing with lowercase letters, digits, underscores or

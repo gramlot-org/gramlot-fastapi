@@ -7,6 +7,7 @@ from fastapi import APIRouter, FastAPI, HTTPException, Request
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import HTMLResponse, Response
 from gramlot.builder import GramlotBuilder
+from gramlot.database import DbHandler, DbPageMixin
 from gramlot.transport import TYTX_FORMAT, TYTX_MEDIA_TYPE, from_tytx, to_tytx
 from gramlot.hosting import (
     DEFAULT_PREFIX,
@@ -25,15 +26,19 @@ class GramlotApplication(FastAPI):
     """
 
     def __init__(self, directory: str | Path | None = None, *, prefix: str = DEFAULT_PREFIX,
-                 page_title: str = "Gramlot", **fastapi_options):
+                 page_title: str = "Gramlot", db_handler: DbHandler | None = None,
+                 **fastapi_options):
         super().__init__(**fastapi_options)
-        self.gramlot_pages = mount_gramlot(self, directory=directory, prefix=prefix, title=page_title)
+        self.gramlot_pages = mount_gramlot(
+            self, directory=directory, prefix=prefix, title=page_title, db_handler=db_handler,
+        )
 
 
 def mount_gramlot(app: FastAPI, directory: str | Path | None = None, *,
-                  prefix: str = DEFAULT_PREFIX, title: str = 'Gramlot') -> 'PageCollection':
+                  prefix: str = DEFAULT_PREFIX, title: str = 'Gramlot',
+                  db_handler: DbHandler | None = None) -> 'PageCollection':
     """Add Gramlot pages to an existing FastAPI app, using the same registration."""
-    pages = PageCollection(directory, prefix=prefix, title=title)
+    pages = PageCollection(directory, prefix=prefix, title=title, db_handler=db_handler)
     pages.mount(app)
     return pages
 
@@ -43,12 +48,26 @@ class PageCollection(PageRegistry):
 
     This object lives for the server's lifetime. Page and builder instances do not:
     each recipe request creates fresh ones, so requests never share mutable Source.
+    An optional caller-owned DbHandler is attached to DbPageMixin pages; its
+    backend owns operation resources and the caller owns shutdown.
     """
 
-    def __init__(self, directory=None, *, prefix=DEFAULT_PREFIX, title='Gramlot'):
+    def __init__(self, directory=None, *, prefix=DEFAULT_PREFIX, title='Gramlot',
+                 db_handler: DbHandler | None = None):
+        if db_handler is not None and not isinstance(db_handler, DbHandler):
+            raise TypeError('db_handler must implement Gramlot DbHandler')
+        self.db_handler = db_handler
         super().__init__(directory, prefix=prefix, title=title)
         self.runtime = RuntimeAssets(self.prefix)
         self.template = self.runtime.document_template()
+
+    def create_page(self, page_class):
+        page = super().create_page(page_class)
+        if isinstance(page, DbPageMixin):
+            if self.db_handler is None:
+                raise RuntimeError('DbPageMixin requires a configured db_handler')
+            page.dbhandler = self.db_handler
+        return page
 
     async def run_sync(self, function, *args):
         return await run_in_threadpool(function, *args)

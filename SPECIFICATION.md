@@ -1,12 +1,21 @@
 # gramlot-fastapi: scope and extraction inventory
 
+## Provisional SQLite profile — 2026-09-16
+
+`GramlotApplication`, `mount_gramlot` and `PageCollection` accept an optional
+core `DbHandler` as `db_handler`. They attach it to fresh `DbPageMixin` pages.
+The caller owns handler shutdown; the core reader owns per-operation connections.
+The optional `sqlalchemy` extra and SQLite example provide read-only dbSelect
+through the core wheel's existing reader. No write or general ORM API is claimed.
+See [the current SQLAlchemy guide](docs/035-sqlalchemy.md).
+
 ## Distribution clarification — 2026-09-16
 
 This integration remains a POC under review. The experimental runtime lives in
 `gramlot-poc`; `gramlot` will contain the first consolidated product. Preview
 0.1.0a1 pins the compatible core 0.1.5 candidate, following Django's checksummed
-wheel distribution model. See [release preparation](docs/release.md) and the
-paired [architecture](docs/architecture.md). No publication is implied.
+wheel distribution model. See [release preparation](docs/020-release.md) and the
+paired [architecture](docs/010-architecture.md). No publication is implied.
 The adapter now declares the checksummed experimental core wheel as a direct
 dependency, so users do not need a matching Gramlot source tag. Version 0.1.5
 identifies that packaged POC snapshot. Preview descriptions express intended
@@ -23,7 +32,7 @@ reference. Keep the checkout under `/Users/gporcari/Sviluppo/gramlot`.
 ## Owner clarification — 2026-09-15
 
 The section below records the extraction scope. The later
-[server and database integration direction](docs/server-and-database-integration.md)
+[server and database integration direction](docs/040-server-and-database-integration.md)
 refines its ownership boundary: Gramlot will define a standard database
 interface, with server-independent optional adapters in its contrib area.
 Server integration remains in the host repositories. A fake adapter will use
@@ -106,9 +115,9 @@ The package now contains the FastAPI application and mounting APIs, browser
 runtime delivery, role-checked TYTX endpoints, a standalone development command,
 the Genropy `GnrApp` profile, behavior tests and Genropy-backed example pages.
 Host-independent registry, page, builder, transport and runtime discovery remain
-in Gramlot. This FastAPI package has no ready-made SQLAlchemy profile. The current
-core POC separately contains an experimental read-only SQLAlchemy/SQLite adapter;
-see [current SQLAlchemy scope](docs/sqlalchemy.md). Earlier statements about the
+in Gramlot. The provisional SQLAlchemy profile now wires the core read-only
+SQLite adapter to database pages;
+see [current SQLAlchemy scope](docs/035-sqlalchemy.md). Earlier statements about the
 absence of SQLAlchemy code describe the initial extraction inventory.
 
 ## Remaining work
@@ -117,7 +126,8 @@ absence of SQLAlchemy code describe the initial extraction inventory.
    dependency when they next change; compatibility shims cover the transition.
 2. Publish or otherwise make the compatible Gramlot version available before a
    standalone index installation can resolve this package.
-3. Implement the SQLAlchemy profile with real database behavior tests.
+3. Extend the provisional read-only SQLAlchemy profile only after agreeing further
+   database operations and transaction semantics.
 4. Verify rendered Python-authored Gramlot pages and installed-package use for
    plain hosting and each database profile independently.
 

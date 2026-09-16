@@ -5,7 +5,7 @@
 Run `gramlot-fastapi serve examples/plain` from this checkout and open
 http://127.0.0.1:8000/page/inspector/. This Python-authored page demonstrates
 Data bindings and Source inspection without a database. See the
-[inspector guide](../docs/inspector.md).
+[inspector guide](../docs/025-inspector.md).
 
 ## Genropy
 
@@ -24,3 +24,10 @@ app = create_genropy_application(
 
 The pages expect the sample `invc` model described in their README. Plain
 FastAPI hosting does not initialize Genropy and does not expose these pages.
+
+## SQLAlchemy / SQLite
+
+Install `.[sqlalchemy]`, then run `python examples/sqlalchemy/serve.py`.
+Open http://127.0.0.1:8000/page/index/. The demo creates three synthetic customers
+in a temporary database, opens it read-only through the core adapter and closes
+the handler on server shutdown. See [the SQLAlchemy guide](../docs/035-sqlalchemy.md).

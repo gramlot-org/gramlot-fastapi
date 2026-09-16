@@ -1,10 +1,11 @@
 # Concise documentation
 
-- [Overview](overview.md)
-- [Architecture](architecture.md)
-- [FastAPI inspector](inspector.md)
-- [SQLAlchemy scope and status](sqlalchemy.md)
-- [Documentation policy](documentation.md)
-- [Release procedure](release.md)
-- [Documentation build and hosting](readthedocs.md)
+- [Overview](005-overview.md)
+- [Architecture](010-architecture.md)
+- [FastAPI inspector](025-inspector.md)
+- [SQLAlchemy scope and status](035-sqlalchemy.md)
+- [Documentation policy](015-documentation.md)
+- [Release procedure](020-release.md)
+- [Documentation build and hosting](030-readthedocs.md)
+- [GF-040 · Server and database direction](040-server-and-database-integration.md)
 - [Detailed API and guides](../docs/index.rst)

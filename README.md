@@ -11,7 +11,7 @@ The implementation extracted from `gramlot.contrib.fastapi` lives in
 
 - [FastAPI hosting, routes and RPC](src/gramlot_fastapi/application.py)
 - [Browser runtime delivery](src/gramlot_fastapi/runtime.py)
-- [SQLAlchemy reader: location and current limits](docs/sqlalchemy.md)
+- [SQLAlchemy reader: location and current limits](docs/035-sqlalchemy.md)
 - [Optional Genropy integration](src/gramlot_fastapi/genropy.py)
 - [Development command](src/gramlot_fastapi/__main__.py),
   [examples](examples/) and [behavior tests](tests/)
@@ -30,8 +30,8 @@ Use [gramlot-poc](https://github.com/gramlot-org/gramlot-poc) for the experiment
 runtime; [gramlot](https://github.com/gramlot-org/gramlot) will contain the first
 consolidated product version and currently defines its constitution and port process.
 
-Read the [overview](docs/overview.md), [concise index](docs_llm/index.md), and
-[preview installation and release procedure](docs/release.md).
+Read the [overview](docs/005-overview.md), [concise index](docs_llm/index.md), and
+[preview installation and release procedure](docs/020-release.md).
 
 ## Scope
 
@@ -41,10 +41,10 @@ For now, this repository hosts the **FastAPI server adapter** and documentation
 explaining SQLAlchemy integration and its current limits. The server-independent
 SQLAlchemy adapter belongs to the Gramlot POC: its initial experiment is a read-only
 SQLite reader, included in the pinned core wheel with SQLAlchemy optional.
-This package does not yet expose a ready-made SQLAlchemy hosting
-profile. See [SQLAlchemy: scope and status](docs/sqlalchemy.md).
+A provisional read-only SQLite profile connects it to pages through
+`GramlotApplication(..., db_handler=handler)`. See [SQLAlchemy: scope and status](docs/035-sqlalchemy.md).
 
-The [server and database integration design](docs/server-and-database-integration.md)
+The [server and database integration design](docs/040-server-and-database-integration.md)
 records the next architectural direction: separate internal adapters, a page-facing
 surface, and a standard Gramlot database interface with real and fake adapters.
 It distinguishes agreed principles from APIs still to be defined.
@@ -64,7 +64,7 @@ you do not need a matching source tag or either core checkout. The clean
 included in the core wheel, so Node.js is not needed. This repository is public;
 no GitHub account is required to download it.
 No PyPI release is claimed. See [getting started](docs/getting-started.md) for a
-minimal page and [release details](docs/release.md) for artifact provenance.
+minimal page and [release details](docs/020-release.md) for artifact provenance.
 
 To update an existing preview installation, run the same pip command with
 `--upgrade`. See [updating and verifying](docs/getting-started.md#updating-the-preview).
@@ -88,17 +88,26 @@ pages = mount_gramlot(app, ".")
 Use `GramlotApplication` when a ready-made FastAPI subclass is more convenient.
 The default page prefix is `/page`.
 
-## SQLAlchemy: where is the code?
+## Try SQLAlchemy with SQLite
 
 The existing database reader is `gramlot.contrib.sqlalchemy`, included in the
 pinned experimental core wheel.
 It provides `SqliteDbHandler` and `TableConfig` for **read-only SQLite access**.
 
-This repository hosts the FastAPI server adapter and
-[SQLAlchemy integration documentation](docs/sqlalchemy.md). **A ready-made
-FastAPI SQLAlchemy profile is still missing**: database configuration and the
-connection to page invocations have not been implemented here. Installing the
-plain FastAPI adapter does not enable database access.
+Install the optional dependency and run the example from this checkout:
+
+```sh
+python -m pip install '.[sqlalchemy]'
+python examples/sqlalchemy/serve.py
+```
+
+Open <http://127.0.0.1:8000/page/index/>. A `dbSelect` field searches three
+demonstration customers in a temporary SQLite database. The connection used
+by the application is read-only; the temporary file is removed after shutdown.
+
+The host accepts `db_handler=handler`; pages use the core's `DbPageMixin`.
+See [configuration, ownership and limits](docs/035-sqlalchemy.md).
+SQLAlchemy is optional and Genropy is not required.
 
 ## Genropy profile
 
@@ -135,7 +144,7 @@ Open its magnifying-glass control or press `Ctrl+Shift+D`.
 This screenshot comes from [this repository's plain FastAPI page](examples/plain/pages/inspector.py).
 The example uses no database. Inspector edits affect the running page; they do
 not rewrite Python source or automatically save records.
-See the [reproducible inspector guide](docs/inspector.md).
+See the [reproducible inspector guide](docs/025-inspector.md).
 
 ## Bonus: genro-bag for other Python projects
 
@@ -152,10 +161,10 @@ See the [genro-bag documentation](https://genro-bag.readthedocs.io).
 Sphinx uses Furo with the Gramlot logo and light/dark palette. A dedicated CI
 workflow builds the guides without installing the adapter or experimental core.
 Read the Docs configuration is provided; external project setup is separate.
-See [build and hosting instructions](docs/readthedocs.md).
+See [build and hosting instructions](docs/030-readthedocs.md).
 
 Expanded `docs/` and concise `docs_llm/` views follow the
-[paired documentation policy](docs/documentation.md).
+[paired documentation policy](docs/015-documentation.md).
 
 ## Development
 

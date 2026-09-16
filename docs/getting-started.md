@@ -23,7 +23,7 @@ class Page(WebPage):
 ```
 
 Run `gramlot-fastapi serve .` and open `http://127.0.0.1:8000/page/hello/`.
-See [artifact provenance](release.md) and the [inspector guide](inspector.md).
+See [artifact provenance](020-release.md) and the [inspector guide](025-inspector.md).
 
 Create an application directory containing `pages/`, then run:
 
@@ -56,4 +56,4 @@ Restart your local server after updating. `main` is a moving experimental source
 reference; use a full commit SHA instead when you need a reproducible installation.
 The dependency continues to select the checksummed core snapshot, not whatever
 happens to be on a core development branch. Follow the first-page example to verify
-hosting. SQLAlchemy/SQLite experiments have a separate [scope and status](sqlalchemy.md).
+hosting. SQLAlchemy/SQLite experiments have a separate [scope and status](035-sqlalchemy.md).
