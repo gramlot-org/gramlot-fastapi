@@ -16,7 +16,7 @@ the checksummed experimental core wheel; no matching core source tag is needed.
 ## 2. Responsibilities
 
 FastAPI: server adaptation. Database adapters: backend/model adaptation.
-Django can supply both, as distinct roles. Gramlot: Python declarations, shared
+Gramlot: Python declarations, shared
 services, transport and reusable JavaScript.
 
 ## 3. Trying and maintaining the POC

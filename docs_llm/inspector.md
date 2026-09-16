@@ -1,34 +1,29 @@
-# Inspector and page experiments
+# FastAPI inspector
 
 [Expanded counterpart and screenshots](../docs/inspector.md).
 
-## 1. Purpose and preview status
+## 1. Run the example
 
-Shared Gramlot browser inspector; FastAPI delivers it. Preview descriptions express
-intended behavior for API/design evaluation; bugs and incomplete cases may exist.
-Screenshots are from Django Bakery, not a FastAPI admin demonstration.
+From a checkout with the preview installed: `gramlot-fastapi serve examples/plain`.
+Open http://127.0.0.1:8000/page/inspector/.
+Source: `examples/plain/pages/inspector.py`. Both screenshots use this plain
+FastAPI page, without a database. APIs are experimental.
 
-## 2. Open the inspector and explore Data
+## 2. Explore and edit Data
 
-Magnifying glass or Ctrl+Shift+D when enabled. Data shows page-state Bags.
-Expand/select nodes; edit supported Properties values and leave the row to commit.
-Bound UI should react. Screenshot: editing detail.title changes the detail heading;
-it does not constitute a database write.
+Magnifying glass or Ctrl+Shift+D. Select Data, then message. Edit the Properties
+value and leave the row. Screenshot value: Edited through the FastAPI inspector.
+The text field and text display share the binding; no database operation occurs.
 
 ## 3. Explore and edit Source
 
-Source is the live declaration tree, not Python source. Edit supported node values
-or attributes to experiment. Screenshot: edited heading. Edits do not rewrite
-files or automatically persist records; reload/controllers can replace them.
-Bindings may trigger application services, so use disposable preview data.
-`source_inspection = False` disables the inspector in FastAPI page startup;
-it is not server authorization.
+Select Source, expand div_0, select h1_0, edit its value and leave the row.
+Screenshot heading: FastAPI: live Source edit.
+Source is the live UI declaration tree generated from Python.
 
-## 4. Forms, validation and admin scope
+## 4. Lifetime and boundaries
 
-SPA admin/model-derived forms/validation are related Django experiments.
-FastAPI has page/service hosting, not an equivalent packaged admin or ORM form
-generator. Shared field declarations do not establish model mapping/persistence.
-Client feedback, service validation, DB constraints and permissions remain distinct.
-See architecture and the proposed standard DB interface; no portable admin contract
-is promised by this POC.
+Edits affect the running page; no Python rewrite or automatic persistence.
+Reload/controllers may replace edits; bindings can react to them.
+`source_inspection = False` disables the inspector in startup configuration;
+it is not server authorization. See SQLAlchemy status and architecture.

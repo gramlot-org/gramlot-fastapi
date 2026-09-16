@@ -18,8 +18,7 @@ the checksummed experimental core wheel; no matching core source tag is needed.
 
 FastAPI supplies server adaptation: requests, routing, invocation and asset delivery.
 Database adapters supply backend access and metadata independently of the server.
-Django can supply both roles, but the responsibilities remain distinct. Gramlot
-owns Python declarations, shared services, transport and reusable browser behavior.
+Gramlot owns Python declarations, shared services, transport and reusable browser behavior.
 
 ## 3. Trying and maintaining the POC
 

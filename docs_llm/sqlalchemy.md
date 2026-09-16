@@ -31,3 +31,6 @@ Use getting-started for the verified plain host; Genropy remains separate/option
 Set supported operations, lifecycle/configuration and installation tests. Writes,
 transactions and model forms need explicit design. Descriptions are intended
 preview behavior for API/design evaluation; bugs and incomplete cases may exist.
+
+Source audit (2026-09-16): the local core SQLAlchemy directory is untracked;
+its presence in the pinned wheel does not imply published GitHub source.

@@ -11,6 +11,7 @@ The implementation extracted from `gramlot.contrib.fastapi` lives in
 
 - [FastAPI hosting, routes and RPC](src/gramlot_fastapi/application.py)
 - [Browser runtime delivery](src/gramlot_fastapi/runtime.py)
+- [SQLAlchemy reader: location and current limits](docs/sqlalchemy.md)
 - [Optional Genropy integration](src/gramlot_fastapi/genropy.py)
 - [Development command](src/gramlot_fastapi/__main__.py),
   [examples](examples/) and [behavior tests](tests/)
@@ -87,6 +88,18 @@ pages = mount_gramlot(app, ".")
 Use `GramlotApplication` when a ready-made FastAPI subclass is more convenient.
 The default page prefix is `/page`.
 
+## SQLAlchemy: where is the code?
+
+The existing database reader is `gramlot.contrib.sqlalchemy`, included in the
+pinned experimental core wheel.
+It provides `SqliteDbHandler` and `TableConfig` for **read-only SQLite access**.
+
+This repository hosts the FastAPI server adapter and
+[SQLAlchemy integration documentation](docs/sqlalchemy.md). **A ready-made
+FastAPI SQLAlchemy profile is still missing**: database configuration and the
+connection to page invocations have not been implemented here. Installing the
+plain FastAPI adapter does not enable database access.
+
 ## Genropy profile
 
 The optional legacy integration accepts an initialized `GnrApp` and gives
@@ -111,22 +124,18 @@ Examples use the experimental Gramlot version maintained in
 Gramlot evolves and its APIs are reviewed and consolidated. Treat them as
 experimental examples, not a stable API reference.
 
-## Inspector, forms and admin experiments
+## FastAPI inspector
 
-The shared Gramlot inspector lets you explore **Data** (page state) and **Source**
-(the live UI declaration tree), and edit supported values and attributes while
-watching the page react. Open its magnifying-glass control or press
-`Ctrl+Shift+D`. These edits do not rewrite Python source or automatically save
-records to a database. See the [illustrated inspector guide](docs/inspector.md).
+The shared Gramlot inspector exposes **Data** (page state) and **Source**
+(the live UI declaration tree). Edit supported values and see the page react.
+Open its magnifying-glass control or press `Ctrl+Shift+D`.
 
-![Gramlot Data inspector, illustrated in the Django Bakery experiment](docs/_static/screenshots/inspector-data.png)
+![Data inspector on the plain FastAPI example](docs/_static/screenshots/inspector-data.png)
 
-The screenshot shows the shared inspector in **Django Bakery**, not a FastAPI
-admin application. Django's SPA admin, model-derived forms and validation are
-related experiments; this adapter does not currently provide an equivalent
-ready-made admin or ORM-driven form generator. See
-[forms and admin scope](docs/inspector.md#4-forms-validation-and-admin-scope).
-All these demonstrations describe experimental, intended behavior and may have bugs.
+This screenshot comes from [this repository's plain FastAPI page](examples/plain/pages/inspector.py).
+The example uses no database. Inspector edits affect the running page; they do
+not rewrite Python source or automatically save records.
+See the [reproducible inspector guide](docs/inspector.md).
 
 ## Bonus: genro-bag for other Python projects
 

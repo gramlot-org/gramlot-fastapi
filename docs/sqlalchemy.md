@@ -17,8 +17,10 @@ on a particular web server. See [architecture](architecture.md).
 
 ## 2. Existing SQLAlchemy experiment
 
-The current local `gramlot-poc` source contains
-`src/gramlot/contrib/sqlalchemy/sqlite.py`. It exports `SqliteDbHandler` and
+The local core POC implementation lives in
+`src/gramlot/contrib/sqlalchemy/sqlite.py`. At the 2026-09-16 check, this directory
+was still untracked in the core checkout, so no published GitHub source link is
+claimed. The module is included in the pinned core wheel described below. It exports `SqliteDbHandler` and
 `TableConfig` through `gramlot.contrib.sqlalchemy`.
 
 This is a bounded, read-only SQLite experiment using SQLAlchemy. It opens an

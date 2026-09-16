@@ -2,7 +2,7 @@
 
 - [Overview](overview.md)
 - [Architecture](architecture.md)
-- [Inspector and page experiments](inspector.md)
+- [FastAPI inspector](inspector.md)
 - [SQLAlchemy scope and status](sqlalchemy.md)
 - [Documentation policy](documentation.md)
 - [Release procedure](release.md)
