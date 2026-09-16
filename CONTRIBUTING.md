@@ -1,6 +1,7 @@
 # Contributing to gramlot-fastapi
 
-Run `uv sync --extra dev --extra docs`, then `git config core.hooksPath hooks`.
+Keep the compatible Gramlot checkout at `../gramlot-poc`, then run
+`uv sync --extra dev --extra docs` and `git config core.hooksPath hooks`.
 Use `develop` for new development and keep changes focused on SPECIFICATION.md.
 
 Before a commit or push, run `uv run python scripts/check.py` and inspect
@@ -8,9 +9,9 @@ Before a commit or push, run `uv run python scripts/check.py` and inspect
 Validate distribution changes with `uv run python -m build` and
 `uv run python -m twine check dist/*`.
 
-Add real host and application behavior tests with the first implementation;
-do not substitute mocks for available integration infrastructure. The initial
-scaffold has no application behavior and no claimed application test coverage.
+Add behavior tests for host changes and use real integration infrastructure when
+available. Plain-host tests must run without Genropy; Genropy lifecycle tests use
+an explicit GnrApp-like object and the live database check remains opt-in.
 Document public behavior and runtime dependencies in the same change.
 
 Keep code, documentation and commit messages in English. Use focused conventional

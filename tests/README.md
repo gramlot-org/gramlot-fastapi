@@ -1,4 +1,5 @@
 # Tests
 
-No application implementation exists yet. Add `test_*.py` behavior tests with
-the first host profile; the repository check script will then run pytest.
+The suite covers page discovery, FastAPI composition, role-checked TYTX RPC,
+browser asset delivery, the CLI and the Genropy invocation lifecycle. The live
+Genropy database relation test is opt-in through `GRAMLOT_TEST_GENROPY_INSTANCE`.

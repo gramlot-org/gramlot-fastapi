@@ -47,6 +47,7 @@ src/*.egg-info/
 
 # Secondary git worktrees (convention: never committed from here)
 worktrees/
+_gramlot-framework/
 
 # Subtasks (convention: never committed)
 .subtasks/
