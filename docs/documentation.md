@@ -10,7 +10,7 @@ reciprocal links. Preserve decisions, constraints, status and unresolved questio
 
 ## 2. Coverage
 
-The paired set is overview, architecture, documentation, release, inspector and Read the Docs setup. Older API
+The paired set is overview, architecture, documentation, release, inspector, SQLAlchemy and Read the Docs setup. Older API
 and integration guides remain detailed references; mirror them when substantially
 revised. The concise index routes readers to both sets. Historical documents must
 retain the dates and limits of their evidence.

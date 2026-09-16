@@ -30,3 +30,7 @@ The existing FastAPI Genropy profile has not yet been separated into that final
 shared boundary. The [earlier design](server-and-database-integration.md) records
 open operations, capabilities and resource policies, not a finalized portable API.
 POC code and tests do not establish compatibility across all hosts and databases.
+
+See [SQLAlchemy scope and status](sqlalchemy.md) for the current read-only SQLite
+experiment, its location in the core POC, and the difference between checkout
+capabilities and the installed preview wheel.

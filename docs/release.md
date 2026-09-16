@@ -49,7 +49,7 @@ same version. Add the concrete tag-based pip installation command only once the
 tag and assets exist. No automatic publishing workflow is added here.
 PyPI publication and repository visibility changes are separate owner actions.
 Until then install the source preview from main or use locally verified wheels.
-GitHub repository access is required while this adapter repository is private.
+The adapter repository and core release assets are public; anonymous downloads are supported.
 
 ## 4. Architecture limits
 

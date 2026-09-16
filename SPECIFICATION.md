@@ -106,7 +106,10 @@ The package now contains the FastAPI application and mounting APIs, browser
 runtime delivery, role-checked TYTX endpoints, a standalone development command,
 the Genropy `GnrApp` profile, behavior tests and Genropy-backed example pages.
 Host-independent registry, page, builder, transport and runtime discovery remain
-in Gramlot. SQLAlchemy is not implemented.
+in Gramlot. This FastAPI package has no ready-made SQLAlchemy profile. The current
+core POC separately contains an experimental read-only SQLAlchemy/SQLite adapter;
+see [current SQLAlchemy scope](docs/sqlalchemy.md). Earlier statements about the
+absence of SQLAlchemy code describe the initial extraction inventory.
 
 ## Remaining work
 

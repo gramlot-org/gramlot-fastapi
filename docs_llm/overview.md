@@ -24,3 +24,8 @@ services, transport and reusable JavaScript.
 [Release](release.md): checksummed core, isolated wheel verification. Development:
 sibling POC. Plain host and legacy Genropy exist; shared DB contracts under review.
 Maintain paired docs via [policy](documentation.md).
+
+This repository currently hosts the FastAPI server adapter and explains the
+SQLAlchemy integration boundary. The core POC has an experimental read-only SQLite
+reader; a packaged FastAPI SQLAlchemy profile is not supplied here.
+See [SQLAlchemy status](sqlalchemy.md).

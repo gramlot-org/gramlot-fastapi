@@ -36,7 +36,12 @@ Read the [overview](docs/overview.md), [concise index](docs_llm/index.md), and
 
 This repository owns the FastAPI adapter and host-specific classes extracted
 from Gramlot. Plain hosting and the Genropy `GnrApp` profile are implemented.
-SQLAlchemy support is separate new work and is not implemented yet.
+For now, this repository hosts the **FastAPI server adapter** and documentation
+explaining SQLAlchemy integration and its current limits. The server-independent
+SQLAlchemy adapter belongs to the Gramlot POC: its initial experiment is a read-only
+SQLite reader, included in the pinned core wheel with SQLAlchemy optional.
+This package does not yet expose a ready-made SQLAlchemy hosting
+profile. See [SQLAlchemy: scope and status](docs/sqlalchemy.md).
 
 The [server and database integration design](docs/server-and-database-integration.md)
 records the next architectural direction: separate internal adapters, a page-facing
@@ -55,10 +60,13 @@ This installs the checksummed Gramlot 0.1.5 core wheel automatically from the
 Django preview assets. **0.1.5 identifies that packaged experimental snapshot**;
 you do not need a matching source tag or either core checkout. The clean
 `gramlot` repository is not yet the executable product. Browser assets are
-included in the core wheel, so Node.js is not needed. This repository currently
-requires GitHub access while private; this command does not grant that access.
+included in the core wheel, so Node.js is not needed. This repository is public;
+no GitHub account is required to download it.
 No PyPI release is claimed. See [getting started](docs/getting-started.md) for a
 minimal page and [release details](docs/release.md) for artifact provenance.
+
+To update an existing preview installation, run the same pip command with
+`--upgrade`. See [updating and verifying](docs/getting-started.md#updating-the-preview).
 
 Then start the development host:
 

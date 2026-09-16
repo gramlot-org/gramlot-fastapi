@@ -22,3 +22,7 @@ belongs in core/POC. SQLite exists in POC's `contrib/sqlalchemy/sqlite.py`, not 
 Temporary legacy placement is acceptable for preview. FastAPI Genropy separation,
 portable operations/capabilities/lifecycles remain open. Prior design is not a final
 API; passing POC tests does not establish all host/backend compatibility.
+
+See [SQLAlchemy scope and status](sqlalchemy.md) for the current read-only SQLite
+experiment, its location in the core POC, and the difference between checkout
+capabilities and the installed preview wheel.

@@ -3,6 +3,7 @@
 - [Overview](overview.md)
 - [Architecture](architecture.md)
 - [Inspector and page experiments](inspector.md)
+- [SQLAlchemy scope and status](sqlalchemy.md)
 - [Documentation policy](documentation.md)
 - [Release procedure](release.md)
 - [Documentation build and hosting](readthedocs.md)

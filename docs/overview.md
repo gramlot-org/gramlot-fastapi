@@ -27,3 +27,8 @@ See [release procedure](release.md) for a checksummed core candidate and clean
 wheel installation. Development can use sibling `gramlot-poc`. Plain hosting and
 legacy Genropy integration exist; portable database contracts remain under review.
 The paired documentation follows [documentation policy](documentation.md).
+
+This repository currently hosts the FastAPI server adapter and explains the
+SQLAlchemy integration boundary. The core POC has an experimental read-only SQLite
+reader; a packaged FastAPI SQLAlchemy profile is not supplied here.
+See [SQLAlchemy status](sqlalchemy.md).

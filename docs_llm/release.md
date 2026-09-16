@@ -34,5 +34,5 @@ core remain separate reviewed work.
 
 The main source preview declares the checksummed core wheel directly: pip fetches
 it automatically. Version 0.1.5 denotes that POC wheel, not a required source tag.
-GitHub access is required while the adapter is private. Preview descriptions are
+The adapter and core assets are public; anonymous downloads are supported. Preview descriptions are
 intended behavior, with bugs possible; no FastAPI wheel release or PyPI release is claimed.

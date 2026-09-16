@@ -25,6 +25,7 @@ first page, or :doc:`architecture` for the server and database boundaries.
 
    guide
    inspector
+   sqlalchemy
    reference
    architecture
    server-and-database-integration
