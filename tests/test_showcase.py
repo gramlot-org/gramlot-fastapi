@@ -1,62 +1,35 @@
 # Copyright 2026 Softwell S.r.l. - SPDX-License-Identifier: Apache-2.0
-"""The first showcase delivers one persistent shared Source tree without a DB."""
-import inspect
+"""FastAPI serves the shared showcase without owning its lesson declarations."""
+import importlib.util
+import json
 from pathlib import Path
-from textwrap import dedent
 
 from fastapi.testclient import TestClient
-from genro_bag import Bag
-from genro_tytx import from_tytx
-
-from gramlot_fastapi import GramlotApplication
+from gramlot.showcase import get_showcase_directory
 
 
-EXAMPLE = Path(__file__).resolve().parents[1] / 'examples' / 'showcase'
+def create_showcase_app():
+    path = Path(__file__).resolve().parents[1] / 'examples/showcase/serve.py'
+    spec = importlib.util.spec_from_file_location('showcase_host', path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.create_app()
 
 
-def descendants(bag):
-    for node in bag.nodes:
-        yield node
-        if isinstance(node.value, Bag):
-            yield from descendants(node.value)
-
-
-def test_showcase_navigation_sources_and_shared_components():
-    app = GramlotApplication(EXAMPLE)
+def test_shared_showcase_pages_are_served_by_fastapi():
+    app = create_showcase_app()
+    assert app.gramlot_pages.directory == get_showcase_directory().resolve()
+    assert len(app.gramlot_pages.pages) == 12
     with TestClient(app) as client:
-        assert client.get('/page/index/').status_code == 200
-        response = client.get('/page/index/recipe')
-        assert response.status_code == 200
-        source = from_tytx(response.text, transport='json')
-        nodes = list(descendants(source))
-        navigation = next(node.attr['value'] for node in nodes
-                          if node.attr.get('destination') == 'showcase.navigation')
-        assert navigation.keys() == ['welcome', 'counter', 'formula']
-        assert any(node.attr.get('selectedPath') == '^showcase.selected' for node in nodes)
-        assert sum(node.attr.get('selectedPage') == '^showcase.selected' for node in nodes) == 2
-        assert {node.attr.get('region') for node in nodes} >= {'top', 'left', 'center', 'bottom'}
-        page_class = app.gramlot_pages.page_classes['index']
-        strings = [node.value for node in nodes if isinstance(node.value, str)]
-        for _name, _title, method in page_class.examples:
-            assert dedent(inspect.getsource(getattr(page_class, method))) in strings
-        assert 'Show source' in strings
-        assert any(node.attr.get('alt') == 'Gramlot' for node in nodes)
-
-
-def test_showcase_initial_data_and_request_isolation():
-    app = GramlotApplication(EXAMPLE)
-    with TestClient(app) as client:
-        def initial_data():
-            response = client.get('/page/index/recipe')
-            nodes = descendants(from_tytx(response.text, transport='json'))
-            return {node.attr['destination']: node.attr.get('value') for node in nodes
-                    if node.label.startswith('dataSetter_')}
-        first = initial_data()
-        first['showcase.navigation'].set_item('private', 'mutation')
-        second = initial_data()
-        assert second['showcase.navigation'].keys() == ['welcome', 'counter', 'formula']
-        assert second['welcome.name'] == 'Ada'
-        assert second['counter.value'] == 0
-        assert second['formula.quantity'] == 3
-        assert second['formula.price'] == 12
-        assert second['showcase.sourceOpen'] is False
+        assert client.get('/', follow_redirects=False).headers['location'] == '/page/index/'
+        for name in app.gramlot_pages.pages:
+            document = client.get(f'/page/{name}/')
+            assert document.status_code == 200, name
+            assert client.get(f'/page/{name}/recipe').status_code == 200, name
+            startup = document.text.split('id="startup">', 1)[1].split('</script>', 1)[0]
+            inspection = json.loads(startup)['inspector']
+            if name == 'index':
+                assert inspection is False
+            else:
+                assert inspection['data_root'] == 'data_root'
+                assert inspection['source_root'] == 'source_root'
