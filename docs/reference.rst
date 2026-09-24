@@ -1,6 +1,10 @@
 FastAPI adapter reference
 =========================
 
+This is the historical PoC API reference. The command and classes below
+require modules absent from clean Gramlot 0.1.0. For the native public API,
+see :doc:`050-native-html` and :doc:`getting-started`.
+
 Command line
 ------------
 

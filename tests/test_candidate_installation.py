@@ -26,7 +26,7 @@ def test_no_override_uses_normal_resolution(candidate, monkeypatch):
     assert calls == []
 
 
-def test_direct_core_dependency_supplies_version_for_verification(candidate, monkeypatch):
+def test_candidate_filename_supplies_version_for_verification(candidate, monkeypatch):
     import json
     monkeypatch.setenv('CORE_WHEEL_URL', 'https://example.com/gramlot-0.1.5-py3-none-any.whl')
     monkeypatch.setenv('CORE_WHEEL_SHA256', 'a' * 64)

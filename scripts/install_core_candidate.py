@@ -1,17 +1,11 @@
 # Copyright 2026 Softwell S.r.l. - SPDX-License-Identifier: Apache-2.0
-"""Optional CI bootstrap for a checksummed core wheel before its PyPI release.
-
-With no candidate environment variables, ordinary pip resolution uses the declared checksummed core URL.
-This helper is a release-test tool, not an application installation hook.
-"""
+"""Optional CI bootstrap for a checksummed, unpinned core wheel candidate."""
 import argparse
 import json
-from pathlib import Path
 import os
 import re
 import subprocess
 import sys
-import tomllib
 from urllib.parse import urlsplit
 
 
@@ -20,7 +14,7 @@ import json, sys
 from importlib.metadata import distribution
 expected = json.load(sys.stdin)
 core = distribution('gramlot')
-assert core.version == expected['version'], 'Installed Gramlot version differs from the candidate pin'
+assert core.version == expected['version'], 'Installed Gramlot version differs from the candidate wheel'
 record = json.loads(core.read_text('direct_url.json') or '{}')
 assert record.get('url') == expected['url'], 'Installed Gramlot is not the supplied candidate URL'
 archive = record.get('archive_info', {})
@@ -46,23 +40,15 @@ def main():
             or not parsed.path.endswith('.whl')
             or not re.fullmatch('[0-9a-fA-F]{64}', checksum)):
         raise SystemExit('Candidate requires an HTTPS wheel URL and its SHA-256 checksum')
-    project = tomllib.loads((Path(__file__).resolve().parents[1] / 'pyproject.toml').read_text())
-    pins = []
-    for dependency in project['project']['dependencies']:
-        if dependency.startswith('gramlot=='):
-            pins.append(dependency.removeprefix('gramlot=='))
-        elif dependency.startswith('gramlot @ '):
-            filename = urlsplit(dependency.removeprefix('gramlot @ ')).path.rsplit('/', 1)[-1]
-            match = re.fullmatch(r'gramlot-([^-]+)-py3-none-any\.whl', filename)
-            if match:
-                pins.append(match[1])
-    if len(pins) != 1:
-        raise SystemExit('Candidate verification requires one exact Gramlot version pin')
+    filename = parsed.path.rsplit('/', 1)[-1]
+    match = re.fullmatch(r'gramlot-([^-]+)-py3-none-any\.whl', filename)
+    if match is None:
+        raise SystemExit('Candidate wheel filename must expose the Gramlot version')
     if not args.verify:
         subprocess.run([args.python, '-m', 'pip', 'install', '--only-binary=:all:',
                         f'{url}#sha256={checksum}'], check=True)
     subprocess.run([args.python, '-I', '-c', VERIFY], check=True, text=True,
-                   input=json.dumps({'version': pins[0], 'url': url,
+                   input=json.dumps({'version': match[1], 'url': url,
                                      'sha256': checksum.lower()}))
 
 

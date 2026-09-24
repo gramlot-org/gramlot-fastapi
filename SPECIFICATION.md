@@ -1,5 +1,14 @@
 # gramlot-fastapi: scope and extraction inventory
 
+## Native 0.1.0 release boundary — 2026-09-23
+
+The supported native path is `NativeHtmlApplication` or `mount_native_html`
+against clean Gramlot 0.1.0 and its neutral Host. See [GF-050](docs/050-native-html.md).
+The extraction, SQLite and preview-wheel sections below document the older
+PoC profile, not the current 0.1.0 installer or API. Its legacy imports require
+modules absent from the clean core. Neither adapter nor core is claimed
+published to a registry.
+
 ## Provisional SQLite profile — 2026-09-16
 
 `GramlotApplication`, `mount_gramlot` and `PageCollection` accept an optional

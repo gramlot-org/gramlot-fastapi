@@ -1,5 +1,8 @@
 # FastAPI inspector
 
+Historical PoC guide: the inspector and CLI below use APIs outside clean
+Gramlot 0.1.0. See [GF-050](050-native-html.md) for the native host.
+
 Document ID: **GF-025**.
 
 [Concise counterpart](https://github.com/gramlot-org/gramlot-fastapi/blob/main/docs_llm/025-inspector.md).

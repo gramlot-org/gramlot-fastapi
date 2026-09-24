@@ -13,7 +13,7 @@ Block ID: **GF-010-005**.
 
 The [Gramlot constitution](https://github.com/gramlot-org/gramlot/blob/main/docs/00-constitution.md)
 separates server and database adapters. FastAPI owns HTTP routing, request context,
-TYTX invocation and runtime asset delivery. Gramlot owns Python page declarations,
+invocation and runtime asset delivery. Gramlot owns Python page declarations,
 shared hosting contracts, transport and JavaScript assets. Applications use Gramlot
 Source, Data, bindings and services; reusable browser behavior belongs in the core.
 
@@ -24,12 +24,12 @@ Source, Data, bindings and services; reusable browser behavior belongs in the co
 
 Block ID: **GF-010-010**.
 
-`gramlot_fastapi.application` owns routing and invocation, using `gramlot.hosting`
-and `gramlot.transport`. `gramlot_fastapi.runtime` serves the prebuilt core assets.
-A browser manifest is required by default; `development=True` explicitly enables
-source-runtime development. The candidate pins the tested Gramlot 0.1.5 API.
-`gramlot_fastapi.genropy` supplies invocation-scoped `GnrApp` access with database
-work and cleanup on the same worker thread. Plain hosting requires no Genropy.
+`gramlot_fastapi.native_html` translates FastAPI requests to the clean core's
+neutral `gramlot.server.Host`. It serves the packaged browser runtime and owns
+page, main, remote Source and close routes. The historical
+`gramlot_fastapi.application` and `gramlot_fastapi.runtime` use PoC hosting and
+transport APIs; `gramlot_fastapi.genropy` belongs to that profile. None is a
+native 0.1.0 integration.
 
 <a id="3-database-ownership-and-open-work"></a>
 <a id="gf-010-015"></a>

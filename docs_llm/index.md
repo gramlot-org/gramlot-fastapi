@@ -1,5 +1,7 @@
 # Concise documentation
 
+- [Getting started with native HTML](getting-started.md)
+- [GF-050 · Native HTML host](050-native-html.md)
 - [Overview](005-overview.md)
 - [Architecture](010-architecture.md)
 - [gramlot.showcase](045-showcase.md)

@@ -12,7 +12,7 @@ Document ID: **GF-010**.
 Block ID: **GF-010-005**.
 
 Gramlot constitution separates host/DB adaptation. FastAPI owns HTTP, context,
-TYTX invocation and asset delivery. Core owns declarations, hosting contracts,
+invocation and asset delivery. Core owns declarations, hosting contracts,
 transport and JS. Applications use Source/Data/bindings/services; no local bypasses.
 
 <a id="2-current-implementation"></a>
@@ -22,10 +22,10 @@ transport and JS. Applications use Source/Data/bindings/services; no local bypas
 
 Block ID: **GF-010-010**.
 
-`application`: routing via `gramlot.hosting`/`gramlot.transport`. `runtime`: core's
-prebuilt assets; manifest required unless explicit `development=True`. Core pin:
-0.1.5. `genropy`: invocation-scoped GnrApp, DB work and cleanup in one worker thread.
-Plain host needs no Genropy.
+`native_html` adapts FastAPI requests to clean `gramlot.server.Host`, serving
+packaged runtime plus page/main/source/close routes. Historical `application`,
+`runtime` and `genropy` modules use PoC hosting/transport APIs and are outside
+native 0.1.0. The native host has no database dependency.
 
 <a id="3-database-ownership-and-open-work"></a>
 <a id="gf-010-015"></a>

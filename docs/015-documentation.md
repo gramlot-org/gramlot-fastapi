@@ -54,10 +54,12 @@ never reuse retired IDs. Cite IDs with links and update inbound references.
 Migrated Markdown pairs: overview ([GF-005](005-overview.md)), architecture ([GF-010](010-architecture.md)), documentation
 ([GF-015](015-documentation.md)), release ([GF-020](020-release.md)), inspector ([GF-025](025-inspector.md)), Read the Docs ([GF-030](030-readthedocs.md)),
 SQLAlchemy ([GF-035](035-sqlalchemy.md)), integration direction ([GF-040](040-server-and-database-integration.md)).
-The integration direction now has its missing concise mirror.
+Native hosting ([GF-050](050-native-html.md)) and native getting started
+([GF-055](getting-started.md)) also have paired guides with stable IDs. The
+integration direction and getting-started guides now have concise mirrors.
 
-Remaining legacy guides: getting-started.md, first-page.rst, guide.rst and
-reference.rst lack concise mirrors and stable IDs. Migrate and add mirrors on
+Remaining legacy guides: first-page.rst, guide.rst and reference.rst lack
+concise mirrors and stable IDs. Migrate and add mirrors on
 substantial revision. Entry points, configuration, requirements and assets are
 exempt. Keep Sphinx with sphinx_rtd_theme. Public documentation follows main; new work stays on
 develop until verified and accepted.

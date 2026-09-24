@@ -1,6 +1,10 @@
 Your first three pages
 ======================
 
+Historical PoC guide. These examples and ``gramlot-fastapi serve`` require
+the older Gramlot Page/recipe/RPC API and do not run with clean core 0.1.0.
+For the current native path, see :doc:`getting-started`.
+
 Install Gramlot
 ---------------
 

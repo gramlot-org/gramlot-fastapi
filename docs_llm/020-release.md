@@ -1,4 +1,4 @@
-# Experimental preview preparation
+# Native HTML release preparation
 
 Document ID: **GF-020**.
 
@@ -11,10 +11,10 @@ Document ID: **GF-020**.
 
 Block ID: **GF-020-005**.
 
-Unpublished adapter candidate 0.1.0a1; exact core 0.1.5 from Django's GitHub
-v0.1.0-preview.1. SHA-256:
-`63466802618c8cbd3fed0a83e1072556085a31bd522477dbcfe1122417a26f4a`.
-POC, not consolidated product; wheel consumption needs no editable checkout/Node.
+Native FastAPI uses clean Gramlot 0.1.0 through `NativeHtmlApplication` and
+`mount_native_html`. The adapter has its own development version. Build and
+install local wheels; neither core nor adapter is claimed published to a
+registry. The older 0.1.5 wheel and CLI are historical PoC material.
 
 <a id="2-build-and-verify"></a>
 <a id="gf-020-010"></a>
@@ -23,12 +23,13 @@ POC, not consolidated product; wheel consumption needs no editable checkout/Node
 
 Block ID: **GF-020-010**.
 
-Run check.py, build and strict Twine; install core+adapter wheels in clean Python
-3.11+ venv, add HTTPX for verification only. verify_installation.py runs isolated
-outside checkouts: Python page, recipe, nested prebuilt assets, CLI, no Genropy.
-CI: Python 3.11/3.12 × Linux/Windows/macOS. Candidate helper enforces exact version,
-URL/hash provenance; HTTPS wheel override requires both inputs. Browser visual and
-real Genropy acceptance remain separate checks. See expanded commands and Windows path.
+Run native protocol/import checks, the installed Hello World launcher and strict
+Sphinx through `scripts/check.py`. `verify_installation.py` remains a historical
+PoC probe outside the native gate. Install the locally built core 0.1.0,
+FastAPI, Flask, Genro ASGI and Hello World wheels in a clean Python 3.11+
+environment, then launch `python -m gramlot_example_app.server.fastapi` and
+open `/`. The old `verify_installation.py` checks PoC APIs, not native 0.1.0.
+See expanded commands and Windows path.
 
 <a id="3-manual-distribution-gate"></a>
 <a id="gf-020-015"></a>
@@ -37,11 +38,9 @@ real Genropy acceptance remain separate checks. See expanded commands and Window
 
 Block ID: **GF-020-015**.
 
-Review commit/tag and remote CI; publish verified wheel/sdist plus SHA256SUMS.
-GitHub prerelease may pair exact core wheel with adapter, as Django does. Record
-core provenance/hash and adapter commit; never replace same-version core silently.
-Add real tag-based install command after assets/tag exist. No automatic publication.
-PyPI/visibility are separate owner actions; currently use local wheels or siblings.
+Record wheel versions, checksums and source revisions across core, all adapters
+and example. GitHub archive or registry delivery needs an owner decision; a
+local build and source tag do not imply publication. No automatic publishing.
 
 <a id="4-architecture-limits"></a>
 <a id="gf-020-020"></a>
@@ -50,11 +49,12 @@ PyPI/visibility are separate owner actions; currently use local wheels or siblin
 
 Block ID: **GF-020-020**.
 
-Server/DB roles independent. No forced migration for packaging; SQLite belongs in
-core/POC, temporary legacy location tolerated. Shared DB contract and consolidated
-core remain separate reviewed work.
+Server/DB roles are independent. Native 0.1.0 has no database. SQLite and
+Genropy are PoC experiments requiring separate migration and review.
 
-The main source preview declares the checksummed core wheel directly: pip fetches
-it automatically. Version 0.1.5 denotes that POC wheel, not a required source tag.
-The adapter and core assets are public; anonymous downloads are supported. Preview descriptions are
-intended behavior, with bugs possible; no FastAPI wheel release or PyPI release is claimed.
+
+Native release checks (2026-09-24): `python scripts/check.py` now runs Ruff,
+the native protocol tests and documentation builds against the clean core. CI
+builds core from its maintained main branch with floating dependencies. The
+retained legacy tests and PoC installation probes remain separate historical
+coverage; they are not executed as native 0.1.0 acceptance checks.

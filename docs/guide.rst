@@ -1,10 +1,15 @@
 FastAPI integration
 ===================
 
+Historical PoC guide. ``GramlotApplication`` and ``mount_gramlot`` below
+require modules absent from clean Gramlot 0.1.0. The current native path uses
+``NativeHtmlApplication`` or ``mount_native_html``; see :doc:`getting-started`
+and :doc:`050-native-html`.
+
 Choose the amount of server code you need
 -----------------------------------------
 
-For pages alone, :doc:`getting-started` uses ``gramlot-fastapi serve [directory]``.
+In this historical profile, ``gramlot-fastapi serve [directory]`` starts the host.
 The adapter creates FastAPI and starts Uvicorn. You only author pages.
 
 For a customized FastAPI application, create ``main.py`` at the application root:

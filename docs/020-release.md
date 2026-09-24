@@ -1,4 +1,4 @@
-# Experimental preview preparation
+# Native HTML release preparation
 
 Document ID: **GF-020**.
 
@@ -11,16 +11,13 @@ Document ID: **GF-020**.
 
 Block ID: **GF-020-005**.
 
-The FastAPI candidate is **0.1.0a1**, pinned to **gramlot 0.1.5**. It is a POC,
-not the forthcoming consolidated product. The source preview is installable from this repository on `main`;
-no tagged FastAPI wheel or PyPI release is claimed. The matching core wheel is already distributed in Django's
-`v0.1.0-preview.1` GitHub release. Its SHA-256 is
-`63466802618c8cbd3fed0a83e1072556085a31bd522477dbcfe1122417a26f4a`.
-The adapter declares that URL and checksum as a direct dependency, so normal pip
-installation resolves it automatically. Version 0.1.5 identifies this wheel's
-experimental snapshot; it does not require a matching core source release.
-No editable checkout or Node.js is needed. Described behavior is intended behavior;
-these previews may contain bugs and exist to evaluate APIs and design choices.
+The native FastAPI implementation uses the clean Gramlot **0.1.0** wheel and
+the adapter's `NativeHtmlApplication`/`mount_native_html` APIs. The adapter
+currently has its own development version; it need not equal the core version.
+Build adapter wheels locally and install them with the locally prepared core
+wheel. Neither a FastAPI wheel nor the clean core 0.1.0 is claimed published to
+a registry. The older 0.1.5 wheel and the `gramlot-fastapi serve` command belong
+only to the historical PoC profile, outside this release.
 
 <a id="2-build-and-verify"></a>
 <a id="gf-020-010"></a>
@@ -29,26 +26,25 @@ these previews may contain bugs and exist to evaluate APIs and design choices.
 
 Block ID: **GF-020-010**.
 
-Run `python scripts/check.py`, `python -m build`, and
-`python -m twine check --strict dist/*` in the prepared development environment.
-Then create a separate Python 3.11+ environment:
+Run focused native protocol tests, the native import/star-import check and a
+strict Sphinx build against clean 0.1.0 using `scripts/check.py`.
+`verify_installation.py` remains a historical PoC probe, outside the native gate. Build all three Python adapter wheels and the Hello World wheel; then create a
+separate Python 3.11+ consumer environment:
 
 ```sh
 python -m venv temp/consumer
 temp/consumer/bin/python -m pip install \
-  'https://github.com/gramlot-org/gramlot-django/releases/download/v0.1.0-preview.1/gramlot-0.1.5-py3-none-any.whl#sha256=63466802618c8cbd3fed0a83e1072556085a31bd522477dbcfe1122417a26f4a' \
-  dist/gramlot_fastapi-0.1.0a1-py3-none-any.whl httpx
-python scripts/verify_installation.py --python temp/consumer/bin/python
+  /path/to/gramlot-0.1.0-py3-none-any.whl \
+  /path/to/gramlot_fastapi-*.whl /path/to/gramlot_flask-*.whl \
+  /path/to/gramlot_genro_asgi-*.whl /path/to/gramlot_example_app-*.whl
+temp/consumer/bin/python -m gramlot_example_app.server.fastapi
 ```
 
-On Windows use `temp/consumer/Scripts/python.exe`. HTTPX is for the verification
-client, not a runtime dependency of ordinary applications. The probe runs outside
-checkouts with isolated imports; it verifies a Python-authored page, recipe,
-prebuilt runtime delivery at a nested prefix, CLI and plain hosting without Genropy.
-CI tests Python 3.11/3.12 on Linux, Windows and macOS using packages, with no sibling
-checkout. `install_core_candidate.py` validates the exact core version and provenance;
-its optional HTTPS URL and SHA-256 inputs must be supplied together. Browser visual
-verification and real legacy Genropy installation are separate acceptance checks.
+On Windows use `temp/consumer/Scripts/python.exe`. Open
+<http://127.0.0.1:8000/>. Native protocol tests cover the bounded API; the
+historical `verify_installation.py` probe exercises PoC APIs and is not a
+0.1.0 acceptance check. Use the installed Hello World launcher for the native
+page and browser path.
 
 <a id="3-manual-distribution-gate"></a>
 <a id="gf-020-015"></a>
@@ -57,16 +53,11 @@ verification and real legacy Genropy installation are separate acceptance checks
 
 Block ID: **GF-020-015**.
 
-Review the adapter changes and choose the release commit/tag; run remote CI and
-publish only the verified wheel and sdist with SHA256SUMS. A GitHub prerelease can
-carry the exact compatible core wheel beside the adapter, following Django's
-preview model. Record core provenance, checksums and adapter commit in release notes;
-do not silently rebuild or replace a core wheel with different contents at the
-same version. Add the concrete tag-based pip installation command only once the
-tag and assets exist. No automatic publishing workflow is added here.
-PyPI publication and repository visibility changes are separate owner actions.
-Until then install the source preview from main or use locally verified wheels.
-The adapter repository and core release assets are public; anonymous downloads are supported.
+Record the exact wheel filenames, versions, checksums and source revisions of the
+core, all adapters and example used in an acceptance run. Delivery by GitHub
+archives or a registry is an owner decision, separate from local readiness.
+Do not infer publication from a local wheel build or source tag. No automatic
+publishing workflow is added here.
 
 <a id="4-architecture-limits"></a>
 <a id="gf-020-020"></a>
@@ -75,7 +66,13 @@ The adapter repository and core release assets are public; anonymous downloads a
 
 Block ID: **GF-020-020**.
 
-Server and database adapters are independent responsibilities. Preview packaging
-must not force a database migration. SQLite belongs to Gramlot/gramlot-poc; any
-temporary legacy placement is tolerated. The shared database contract and eventual
-consolidated core release remain separate reviewed work.
+Server and database adapters are independent responsibilities. The native 0.1.0
+profile includes no database. SQLite and Genropy integrations remain PoC
+experiments; they require separate migration and review.
+
+
+Native release checks (2026-09-24): `python scripts/check.py` now runs Ruff,
+the native protocol tests and documentation builds against the clean core. CI
+builds core from its maintained main branch with floating dependencies. The
+retained legacy tests and PoC installation probes remain separate historical
+coverage; they are not executed as native 0.1.0 acceptance checks.

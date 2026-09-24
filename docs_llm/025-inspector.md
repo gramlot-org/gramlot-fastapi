@@ -1,5 +1,8 @@
 # FastAPI inspector
 
+Historical PoC guide: this inspector/CLI is outside clean 0.1.0.
+See [GF-050](050-native-html.md) for native hosting.
+
 Document ID: **GF-025**.
 
 [Expanded counterpart and screenshots](../docs/025-inspector.md).

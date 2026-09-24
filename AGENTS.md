@@ -46,3 +46,16 @@ Follow [the documentation policy](docs/015-documentation.md) and its
 Use Sphinx with sphinx_rtd_theme: blue header, dark sidebar, light content and
 standard theme typography. Preserve the Gramlot logo and accurate experimental
 status notices. This applies to documentation; application UI is separate.
+
+
+## Accepted native 0.1.0 release — 2026-09-24
+
+The owner accepted the bounded clean-core native profile and authorized GitHub
+archive distribution. This supersedes earlier PoC-only direction for this profile.
+Use the native exports and documented Hello World launchers. Legacy Page/recipe/RPC
+modules, CLIs and database demos remain historical and are not clean-core aliases.
+`scripts/check.py` runs Ruff, the native protocol suite and documentation checks;
+PoC-only suites require their own compatible environment and do not define the
+native release gate. Preserve those tests; do not skip failures in the native suite.
+CI builds the current core from main with its declared floating dependencies.
+No PyPI/npm publication or application deployment is authorized.

@@ -1,4 +1,4 @@
-# FastAPI POC overview
+# FastAPI adapter overview
 
 Document ID: **GF-005**.
 
@@ -11,15 +11,12 @@ Document ID: **GF-005**.
 
 Block ID: **GF-005-005**.
 
-This is a POC under review, intended to become a consolidated prerelease after
-review. No release date or stable API is promised. `gramlot-poc` is the executable
-experimental core; the clean `gramlot` repository defines the constitution and
-will contain the first consolidated product. Passing POC tests is evidence, not
-acceptance of a port. The adapter candidate is 0.1.0a1; no publication is implied.
-
-The preview evaluates APIs and design choices. Descriptions express intended
-behavior; bugs and incomplete cases may exist. The adapter automatically installs
-the checksummed experimental core wheel; no matching core source tag is needed.
+The native HTML FastAPI adapter is implemented against the clean Gramlot 0.1.0
+core. `NativeHtmlApplication` and `mount_native_html` are the 0.1.0 entry points;
+the [native guide](050-native-html.md) defines their bounded contract. Core and
+adapter are local release candidates; no registry publication or deployment is
+implied. The older Page/recipe/RPC adapter remains PoC evidence and is outside
+native 0.1.0 compatibility.
 
 <a id="2-responsibilities"></a>
 <a id="gf-005-010"></a>
@@ -39,9 +36,9 @@ Gramlot owns Python declarations, shared services, transport and reusable browse
 
 Block ID: **GF-005-015**.
 
-See [release procedure](020-release.md) for a checksummed core candidate and clean
-wheel installation. Development can use sibling `gramlot-poc`. Plain hosting and
-legacy Genropy integration exist; portable database contracts remain under review.
+See [release procedure](020-release.md) for local 0.1.0 artifacts and installation.
+The separate historical PoC profile uses sibling `gramlot-poc`. Its Genropy and
+database contracts remain outside the native release.
 The paired documentation follows [documentation policy](015-documentation.md).
 
 This repository currently hosts the FastAPI server adapter and explains the
