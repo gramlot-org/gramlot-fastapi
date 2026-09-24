@@ -1,11 +1,9 @@
 import re
 
-import pytest
 from fastapi.testclient import TestClient
 from genro_tytx import from_tytx
 
-pytest.importorskip("gramlot.server", minversion=None).runtime_asset
-NativeHtmlApplication = pytest.importorskip("gramlot_fastapi").NativeHtmlApplication
+from gramlot_fastapi import NativeHtmlApplication
 
 
 PAGE = """from gramlot import Page as BasePage, source
